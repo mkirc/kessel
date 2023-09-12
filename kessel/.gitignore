@@ -1,0 +1,12 @@
+*.csv
+__pycache__/
+test-*/
+venv/
+*query.json
+*project.cfg
+**.swp
+**.png
+**.db
+**.pdf
+**.PDF
+**.pem

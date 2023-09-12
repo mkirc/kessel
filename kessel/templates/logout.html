@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/css/home.css"/>
+{% endblock %}
+{% block title%}Logout{% endblock %}
+{% block body %}
+<div class="container-fluid border-bottom h-100"
+     id="main-content">
+  <div class="row p-2">
+    <div class="col border h-100 p-2 bg-light m-2 text-center">
+      <h1>You are logged out.</h1>
+      <a class="btn btn-dark btn-lg mb-2" href="/" role="button">Return to site</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

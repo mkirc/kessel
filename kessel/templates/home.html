@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/css/home.css"/>
+{% endblock %}
+{% block title%}Site Title{% endblock %}
+{% block body %}
+<div id="spinner">
+  <div class="spin"></div>
+</div>
+<div class="container-fluid border-bottom h-100"
+     id="main-content">
+  <div class="row p-2">
+    <div class="col border h-100 p-2 bg-light m-2">
+      <h1>Home</h1>
+      <strong>Welcome Home!</strong>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js%}
+<script src="/static/js/home.js"></script>
+{% endblock %}
+

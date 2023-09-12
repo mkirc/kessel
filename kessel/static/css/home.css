@@ -1,0 +1,204 @@
+@keyframes spinner {
+    0% {
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+}
+.spin::before {
+  animation: 1.5s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px #cfd0d1;
+  border-bottom-color: #1c87c9;
+  border-radius: 50%;
+  content: "";
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+
+.tr-spin::before {
+  animation: 1.5s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px #cfd0d1;
+  border-bottom-color: #1c87c9;
+  border-radius: 50%;
+  content: "";
+  height: 32px;
+  width: 32px;
+  position: relative;
+  top: 16px;
+  left: 16px;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+
+/* (A) FULL SCREEN WRAPPER */
+#spinner {
+  position: fixed;
+  top: 0; left: 0; z-index: 9999;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.2s;
+}
+
+/* (B) CENTER LOADING SPINNER */
+#spinner div {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%);
+}
+
+
+/* (C) SHOW & HIDE */
+#spinner {
+  visibility: hidden;
+  opacity: 0;
+}
+#spinner.show {
+  visibility: visible;
+  opacity: 1;
+}
+.tr-spin::before {
+    display: none;
+}
+.tr-spin.show::before {
+    display: block;
+}
+
+#retrieve-info {
+  visibility: hidden;
+  opacity: 0;
+}
+#retrieve-info.show {
+  visibility: visible;
+  opacity: 1;
+}
+.navbar {
+    height: 57px;
+}
+
+body { height: calc(100vh - 57px); }
+
+#main-content {
+    background-color: #ECECEC;
+}
+
+#picking-area, #staging-area, #info-box {
+    overflow-y: scroll;
+}
+
+#picking-area {
+    height: calc(100% - 3rem);
+    background-color: lightblue;
+}
+
+#info-box {
+    max-width: 150ch;
+}
+
+#staging-area {
+    height: calc(100% - 3rem);
+}
+
+#staging-area tr td:first-child {
+    cursor: pointer;
+    background-color: #ffc107;
+}
+
+.table td:nth-child(2),
+.table th:nth-child(2) {
+    width: 75%;
+}
+
+#submit-retrieve {
+    height: 7rem;
+    width: 7rem;
+    font-size: 1.1rem
+}
+
+#root {
+    flex-wrap: wrap;
+}
+
+.file-like {
+    display: none;
+    padding: 1rem;
+}
+
+.file-like > img {
+    width: 70px;
+    height: 50px;
+}
+
+.dir > img {
+    cursor: pointer;
+}
+
+.file-like > p {
+    text-align: center;
+    max-width: 10ch;
+    word-wrap: anywhere;
+}
+
+.dir > .plus, .file > .plus {
+    cursor: copy;
+    display:flex;
+    justify-content: center;
+    position: relative;
+    top: 1rem;
+    height: 1.5rem;
+    width: 1.6rem;
+    font-size: 1em;
+    line-height: 1.2;
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 25%;
+}
+
+.dir > .plus {
+    left: calc(70px - 0.75rem);
+}
+
+.file > .plus {
+    left: calc(55px - 0.75rem);
+}
+
+.current, .parent {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    flex-wrap: wrap;
+}
+
+.current > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.current > img, .current > p {
+    display: none;
+}
+.parent > img, .parent > p {
+    display: none;
+}
+
+.current > .plus, .parent > .plus {
+    display: none;
+}
+
+.retrieval-info-menu {
+    height: 40vh;
+    overflow: auto;
+}
+
+.retrieval-info {
+    font-size: 60%;
+}
+

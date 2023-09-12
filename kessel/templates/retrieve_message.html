@@ -1,0 +1,23 @@
+<div class="dropdown">
+  <button class="btn btn-light dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false">
+    {% if has_ans_message %}
+ 	&#128993;
+    {% else %}
+    &#128994;
+    {% endif %}
+  </button>
+  <div class="dropdown-menu retrieval-info-menu" aria-labelledby="dropdownMenuButton">
+    <button class="dropdown-item" onclick="copy_info_to_clip(this)">
+        &#128203; Copy to clipboard
+    </button>
+    <pre class="border-top p-2 retrieval-info">
+    {{ dsmc_output }}
+    </pre>
+  </div>
+</div>
+
