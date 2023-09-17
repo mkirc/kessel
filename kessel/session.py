@@ -18,9 +18,13 @@ class SessionService:
         self.login_route = '/login'
         self.cookie_key = 'session_token'
         # self.psk = token_urlsafe(512)
+        # TODO: Config
         self.psk = 'change to something safe'
-        self.private_key = self.read_key('test-app/private.pem')
-        self.public_key = self.read_key('test-app/public.pem')
+        # TODO: Config
+        # self.private_key = self.read_key('test-app/private.pem')
+        # self.private_key = self.read_key('test-app/private.pem')
+        self.public_key = None 
+        self.public_key = None 
 
     def read_key(self, path):
         with open(path, 'rb') as openFile:

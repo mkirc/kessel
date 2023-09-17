@@ -11,21 +11,20 @@ from urllib.parse import (
     urlunsplit,
     quote_plus,
 )
-from kessel.request import Request
-from kessel.response import Redirect
-from kessel.headers import (
+from .request import Request
+from .response import Redirect
+from .headers import (
     Headers,
     get_file_headers,
     get_text_headers,
     send_http_status,
 )
-from kessel.session import SessionService
-from kessel.urlmap import URLMap
-from kessel.helpers import (
+from .session import SessionService
+from .urlmap import URLMap
+from .helpers import (
     strip_query_of_next_page,
     get_next_page,
 )
-from .context import app_context
 
 class WSGIBase:
     """WSGI compliant application class"""
@@ -36,9 +35,8 @@ class WSGIBase:
         self.environ = None
         self.sitename = 'example.com'
         self.session_service = SessionService(self)
-        self.url_map = URLMap(self)
+        self.urlmap = URLMap()
 
-        self.push_to_context()
 
     def __call__(self, environ, start_response):
         """
@@ -62,12 +60,17 @@ class WSGIBase:
             self.session_service.check_authentication(request)
 
             #____everything from here on can assume a session____
-            if early_result := self.pre_dispatch_checks(request):
+
+            pspec, resource = self.urlmap.route_for_path(request.path)
+            if early_result := self.pre_dispatch_checks(request,
+                                                        pspec,
+                                                        resource):
                 status, headers, response = early_result
             else:
                 # hit route
-                status, headers, response = self.dispatch_request(request)
-
+                status, headers, response = self.dispatch_request(request,
+                                                                  pspec,
+                                                                  resource)
             # login attaches the path of the requested restricted resource,
             # or 'next=/' to query, therefore we need to catch the redirect early
             if self.needs_after_login_redirect(request):
@@ -86,11 +89,6 @@ class WSGIBase:
 
         return response
 
-    def push_to_context(self):
-
-        app_context.app = self
-        self.app_context = app_context
-
     def handle_exception(self, e):
 
         s, h, r = send_http_status(HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -100,12 +98,15 @@ class WSGIBase:
 
         return s, h, [str(s).encode('utf-8')], str(exc).encode('utf-8')
 
-    def pre_dispatch_checks(self, request):
-
-        pspec, resource = self.url_map.route_for_path(request.path)
+    def pre_dispatch_checks(self, request, pspec, resource):
         # 404
+        # TODO: Custom Error pages
         if pspec is None:
             return send_http_status(HTTPStatus.NOT_FOUND)
+        # 405
+        if not request.method in resource.methods:
+            return send_http_status(HTTPStatus.METHOD_NOT_ALLOWED)
+
 
         # authorisation
         if self.needs_authorisation(request, resource):
@@ -123,13 +124,7 @@ class WSGIBase:
                 return send_http_status(HTTPStatus.FORBIDDEN,
                                         'CSRF failed: Token missing or incorrect.')
 
-    def dispatch_request(self, request):
-
-        pspec, resource = self.url_map.route_for_path(request.path)
-
-        # 405
-        if not request.method in resource.methods:
-            return send_http_status(HTTPStatus.METHOD_NOT_ALLOWED)
+    def dispatch_request(self, request, pspec, resource):
 
         if groups := pspec.groups(request.path):
             group_values = [v for v in groups.values()]

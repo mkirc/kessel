@@ -1,16 +1,13 @@
-from .urlmap import Resource, PathSpec
-from kessel import current_app
-
-from functools import wraps
+from .urlmap import URLMap, PathSpec, Resource
 
 class Recipe:
 
-    def __init__(self):
+    def __init__(self, base_path=""):
 
-        self.routes = dict()
-        self.secure_routes = []
+        self.base_path = base_path
+        self.urlmap = URLMap()
 
-    def route(self, path, methods=["GET"]):
+    def route(self, spec, methods=["GET"]):
         """
         use this decorator to register function to url_map
         under path. methods can be "POST" or "GET".
@@ -18,21 +15,23 @@ class Recipe:
         To be copied to app by kessel.add_recipe.
         """
         def wrapper(view_fn):
-            resource = Resource(path, view_fn, methods)
-            pspec = PathSpec(path)
-            self.routes[pspec] = resource
-            return resource
+            pspec = PathSpec(spec)
+            resource = Resource(view_fn, methods)
+            self.urlmap.add(self.base_path + pspec, resource)
+            return view_fn
         return wrapper
 
-    def secured(self, resource=None, roles=['user']):
+    def secured(self, view_fn=None, roles=['user']):
         """
         use this decorator to register ressource as restricted and assign
         roles. To be copied to app by kessel.add_recipe. Omit braces when
         using without arguments, e.g. just '@app.secure'.
         """
-        def wrapper(resource):
-            resource.roles = roles
-            return resource
-        if resource:
-            return wrapper(resource)
+        def wrapper(view_fn):
+            for pspec, resource in self.urlmap.routes.items():
+                if view_fn is resource.view_fn:
+                   resource.roles = roles
+            return view_fn
+        if view_fn:
+            return wrapper(view_fn)
         return wrapper
