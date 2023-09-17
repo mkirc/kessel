@@ -23,8 +23,8 @@ class SessionService:
         # TODO: Config
         # self.private_key = self.read_key('test-app/private.pem')
         # self.private_key = self.read_key('test-app/private.pem')
-        self.public_key = None 
-        self.public_key = None 
+        self.public_key = None
+        self.public_key = None
 
     def read_key(self, path):
         with open(path, 'rb') as openFile:
