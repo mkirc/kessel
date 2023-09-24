@@ -6,9 +6,9 @@ Minimal dependency python wsgi-compatible web framework with the tried
 and tested fluid-container-inspired name. This is pretty crude, so I decided
 to go with 'kessel', german for 'cauldron'.
 
-DISCLAIMER
+### DISCLAIMER
 
-This project is mainly a learning effort and should not be used in any
+> This project is mainly a learning effort and should not be used in any
 reliability- oder security-critical context.
 
 ## Features
@@ -32,11 +32,15 @@ pip install kessel
 
 # usage
 
-TODO
+WIP
+
+see `examples/app.py` and `examples/run.py`
 
 ## recipes
 
 TODO
+
+see `examples/foo/fooController.py`
 
 ## Encoding & Decoding Tokens with RS256 (RSA)
 
@@ -46,3 +50,9 @@ TODO
 mkdir test-app && \
 openssl genrsa -out test-app/private.pem 2048
 ```
+## Acknowledgements
+
+* obviously heavily inspired by [flask](https://github.com/pallets/flask)
+
+* class `Headers` from `headers.py` is a modified version of
+[werkzeug's](https://github.com/pallets/werkzeug)
