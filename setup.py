@@ -17,7 +17,7 @@ requirements = [
 
 setuptools.setup(
     name="kessel",
-    version="0.5",
+    version="0.5.1",
     author="mkirc",
     author_email="m.p.kirchner@gmx.de",
     description="a minimal wsgi framework",
