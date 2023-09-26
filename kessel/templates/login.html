@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block title%}Login{% endblock %}
 {% block body %}
-<form action="{{ action }}" method="post">
-  <label for="username">Name:</label><br>
-  <input type="text" id="username" name="username"><br>
-  <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password"><br>
-  <input type="hidden" name="CSRFToken" value="{{ csrf_token }}">
-  <input type="submit" value="Submit">
-</form>
+<div id="main-content">
+  <div>
+    <h1>Login</h1>
+    <form action="{{ action }}" method="post">
+      <label for="username">Name:</label><br>
+      <input type="text" id="username" name="username"><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password"><br>
+      <input type="hidden" name="CSRFToken" value="{{ csrf_token }}">
+      <div style="margin: 1em 0;" ><input type="submit" class="btn" value="Submit"></div>
+    </form>
+  </div>
+</div>
 {% endblock %}

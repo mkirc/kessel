@@ -1,0 +1,384 @@
+:root {
+  --main-content-width: auto;
+  --left-side-bar-width: 10vw;
+  --right-side-bar-width: 10vw;
+}
+
+:root[color-mode="light"] {
+  --main-bg-color: whitesmoke;
+  --secondary-bg-color: #E7E9EB;
+  --tertiary-bg-color: white;
+  --main-txt-color: #444;
+  --highl-txt-color: mediumaquamarine;
+  --highl-def-color: #D3F0E2;
+}
+
+:root[color-mode="dark"] {
+  --main-bg-color:  #444;
+  --secondary-bg-color: #333;
+  --tertiary-bg-color: #555;
+  --main-txt-color: whitesmoke;
+  --highl-txt-color: aquamarine;
+  --highl-def-color: darkslategrey;
+}
+
+:root[color-mode=dark] figure {
+  filter: invert(90%);
+}
+
+:root[color-mode=dark] #btn-sym-light {
+  display: none;
+}
+
+:root[color-mode=light] #btn-sym-light {
+  display: block;
+}
+
+:root[color-mode=dark] #btn-sym-dark {
+  display: block;
+}
+
+:root[color-mode=light] #btn-sym-dark {
+  display: none;
+}
+
+html, body {
+  font:18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  height: 100vh;
+  background-color: var(--main-bg-color);
+  color: var(--main-txt-color);
+}
+
+#grid-container {
+  display: grid;
+  grid-template-rows: 5em auto 10em;
+  grid-template-columns: var(--left-side-bar-width) var(--main-content-width) var(--right-side-bar-width);
+  gap: 0 0;
+  grid-template-areas:
+  "header header header"
+  "left-side-bar main-content right-side-bar"
+  "footer footer footer";
+}
+
+header {
+  grid-area: header;
+  background-color: var(--secondary-bg-color);
+  border-bottom: solid var(--tertiary-bg-color);
+}
+
+footer {
+  grid-area: footer;
+  background-color: var(--secondary-bg-color);
+}
+
+.btn {
+  background-color: var(--tertiary-bg-color);
+  padding: 0.5rem;
+  color: var(--main-txt-color);
+  display: flex;
+  border: 2px solid var(--secondary-bg-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border: 2px solid var(--tertiary-bg-color);
+}
+
+.header-btn {   margin-left: 0.5rem; }
+
+.txt-lg {
+  font-size: 1.5rem;
+}
+
+header > nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+header > nav > :first-child {
+  display: flex;
+  margin-right: auto;
+  margin-left: 1em;
+}
+
+header > nav > :last-child {
+  display: flex;
+  flex-direction: row;
+  margin-right: 1em;
+  height: 100%;
+  align-items: flex-start;
+  position: relative;
+  top: 17.5%;
+}
+
+header h1 {
+  align-self: center;
+  margin: 0.1rem 0 0 0 ;
+}
+
+header img {
+  margin: 1em;
+}
+
+header details {
+  font-size: 1.1rem;
+}
+
+header details a {
+  border-top: 1px solid var(--secondary-bg-color);
+}
+
+.center {
+  text-align: center;
+}
+
+p {
+  max-width: 80ch;
+  padding: 4px;
+}
+
+ul {
+  padding-left: 1em;
+}
+
+li p {
+  margin-left: 0px !important;
+}
+
+code {
+  font-family: monospace, monospace;
+}
+
+p > code {
+  color: var(--highl-txt-color);
+  background-color: var(--main-bg-color);
+  padding: 0 4px 0 4px;
+  border-radius: 2px;
+
+}
+
+pre {
+  padding: 1rem;
+  font-family: monospace;
+  background-color: var(--secondary);
+  width: max-content;
+}
+
+hr {
+  margin: 1em 0;
+}
+
+
+.active {
+  background-color: var(--secondary-bg-color);
+}
+
+img {
+  display: flex;
+  margin: 1em auto;
+}
+
+figcaption[aria-hidden="true"] {
+  display: none;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--main-txt-color);
+}
+
+a:focus, a:hover, .highl-txt, .highl-txt-obs {
+  color: var(--highl-txt-color) !important;
+}
+
+#left-side { 
+  grid-area: left-side-bar;
+  background-color: var(--tertiary-bg-color)
+}
+#right-side { 
+  grid-area: right-side-bar;
+  background-color: var(--tertiary-bg-color)
+}
+
+#main-content {
+  grid-area: main-content;
+  max-width: 100%;
+  min-width: 0px;
+  background-color: var(--main-bg-color);
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+  scrollbar-color: var(--main-bg-color) var(--secondary-bg-color);
+}
+
+#main-content > div {
+  padding: 1em 2em;
+  min-width: 0;
+  /* overflow: hidden; */
+}
+
+.definition {
+  background-color: var(--highl-def-color);
+  text-align: center;
+  color: var(--main-txt-color);
+  padding: 1em;
+  border: 1px solid darkcyan;
+  margin-bottom: 1em !important;
+  max-width: fit-content;
+}
+
+#main-content pre {
+  margin: auto;
+}
+
+#main-content p {
+  margin: 0 auto;
+}
+
+#main-content ul, #main-content ol {
+  padding-left: 20%;
+  max-width: 75%;
+}
+
+#main-content ul p, #main-content ol p {
+  margin: unset;
+}
+
+blockquote {
+  font-style: italic;
+  margin-left: 4rem;
+}
+
+blockquote > p {
+  padding-left: 1rem;
+  margin-left: 0;
+}
+
+/* math section */
+
+math {
+  font-size: large;
+}
+
+mtext {
+  font-family: Cambria Math, sans-serif;
+  font-size: initial;
+}
+
+/* code highlight section */
+
+.sourceCode > a {
+  text-decoration: none;
+}
+
+.sourceCode > a:hover {
+  color: unset;
+}
+
+.sourceLine {
+  color: #FFD6A0;
+}
+
+
+.kw {
+  color: #D46A6A;
+}
+
+.op {
+  color: var(--main-txt-color);
+}
+
+.bu {
+  color: #7F98C0;
+}
+
+.dt {
+  color: lightblue;
+}
+
+.cf {
+  color: #D46A6A;
+}
+
+.dv,  .bn,  .fl {
+  color: #D336;
+}
+
+.ch {
+  color: #DC32;
+}
+
+.st {
+  color: blue;
+}
+
+.co {
+  color: #93A1A1;
+}
+.ot {
+  color: #A578;
+}
+.al {
+  color: #CB4B; font-weight: bold;
+}
+.fu {
+  color: var(--highl-txt-color);
+}
+
+.er {
+  color: #D30102; font-weight: bold;
+}
+
+/* /code highlight section */
+
+
+table {
+  margin: 0 auto;
+  background-color: var(--main-bg-color);
+  border-spacing: 0px;
+  border-collapse: collapse;
+  border: thin solid var(--main-txt-color);
+}
+
+tr.odd {
+  background-color: var(--tertiary-bg-color);
+}
+
+td, th {
+  padding: 0.5rem;
+}
+
+td {
+  border: thin solid var(--main-txt-color);
+}
+
+
+
+@media only screen and (max-width: 1024px) {
+
+  #grid-container[toc-visible="init"] {
+    --left-side-bar-width: 0px;
+  }
+
+  #grid-container[toc-visible="toggle"] {
+    --left-side-bar-width: calc(50vw - var(--outer-margin));
+  }
+
+  #grid-container[defs-visible="init"] {
+    --right-side-bar-width: 0px;
+  }
+
+  #grid-container[defs-visible="toggle"] {
+    --right-side-bar-width: calc(50vw - var(--outer-margin));
+  }
+}
+
